@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <tuple>
 #include <string>
+#include <math.h>
 
 typedef struct header_file
 {
@@ -22,9 +23,28 @@ typedef struct header_file
 
 typedef struct header_file *header_p;
 
+void normalize(short int* speech, int samples, double* input_speech){
+    // mean
+    double mean=0.0, variance=0.0;
+    for(int i=0;i<samples;i++){
+        mean+=speech[i];
+    }
+    mean/=samples;
+    // variance
+    for(int i=0;i<samples;i++){
+        variance+=(speech[i]-mean)*speech[i]-mean;
+    }
+    variance/=samples;
+    std::cout<<"mean: "<< mean<<" variance: "<< variance << std::endl;
+    for(int i=0;i<100000;i++){
+        if(i<samples)
+            input_speech[i] = (speech[i]-mean)/std::sqrt(variance+1e-5);
+        else
+            input_speech[i] = 0;
+    }
+}
 
-
-std::tuple<int, short int*> call(std::string path){
+std::tuple<int, short int*> WavfileRead(std::string path){
     FILE *infile = fopen(path.c_str(), "rb"); // Open wave file in read mode
 
     short int dataBuffer[4096 * 59];
