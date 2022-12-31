@@ -29,7 +29,7 @@ std::tuple<int, short int*> call(std::string path){
 
     short int dataBuffer[4096 * 59];
     int dataIndex = 0;
-	int BUFSIZE = 4096 * 2; // BUFSIZE can be changed according to the frame size required (eg:512)
+	int BUFSIZE = 16 * 2; // BUFSIZE can be changed according to the frame size required (eg:512)
 	int data_index = 0;
 	int count = 0;									  // For counting number of frames in wave file.
 	short int buff16[BUFSIZE];						  // short int used for 16 bit as input data format is 16 bit PCM audio
@@ -52,7 +52,7 @@ std::tuple<int, short int*> call(std::string path){
 			if (nb != 0)
 			{
                 count++; // Incrementing Number of frames
-				for (int i = 0; i < 4096; i++)
+				for (int i = 0; i < 16; i++)
 				{
 					dataBuffer[data_index++] = buff16[i];
 				}
