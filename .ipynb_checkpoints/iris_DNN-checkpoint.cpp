@@ -1,63 +1,34 @@
 #include <onnxruntime_cxx_api.h>
 #include <array>
 #include <iostream>
-#include "read_audio.h"
-#include <iomanip>
-#include <fstream>
 
 using namespace std;
 
 void getResult(float* floats, int floatsCount) {
-    // get vocab array
-    std::vector<std::string> inputValues; 
-    std::ifstream file("./vocab.txt"); 
-    while(!file.eof()) 
-    {
-        std::string i; 
-        file >> i; 
-        inputValues.emplace_back(i); 
-    }
+	double maxNum = 0;
+	int label = 0;
 	// pointer array to vector
 	vector<double> values(floats, floats + floatsCount);
 	// range-based for-loop
-	for (int i = 0; i < 312; i++) {
-        double maxNum = -100;
-        int label = 0;
-        for(int j=0;j<21128;j++){
-            double prob = values[21128*i+j];
-            if (prob > maxNum) {
-                maxNum = prob;
-                label = j;
-            }
-        }
-		std::cout << inputValues[label] << " ";
+	for (int i = 0; i < floatsCount; i++) {
+		double prob = values[i];
+		std::cout << prob << " ";
+		if (prob > maxNum) {
+			maxNum = prob;
+			label = i;
+		}
 	}
+	std::cout << "\nPredict Label:" << label << "\n";
 }
 
 int main()
 {
-    // 模型輸入
-    double input_speech[100000];
-    // 讀取音檔 16kHz
-    auto [samples, speech] = WavfileRead("./data/test3.wav");
-    std::cout << "Samples: "<< samples << ",first sample" << speech[0] << std::endl;
-    // audio normalize
-    normalize(speech, samples, input_speech);
-    double tot=0.0;
-    ofstream myfile;
-    myfile.open ("example.txt");
-    for(int i=0;i<100000;i++){
-        tot+=fabs(input_speech[i]);
-        myfile << std::fixed << std::setprecision(6) << input_speech[i] << " ";
-    }
-    myfile.close();
-    printf("tot: %.6lf\n", tot);
 	// gives access to the underlying API (you can optionally customize log)
 	// you can create one environment per process (each environment manages an internal thread pool)
 	Ort::Env env;
 
 	// creates an inference session for a certain model
-	Ort::Session session{ env, "./data/ars_wav2vec2_large-xlsr-52-tw.onnx", Ort::SessionOptions{} };
+	Ort::Session session{ env, "./data/tf_model.onnx", Ort::SessionOptions{} };
 
 	// Ort::Session gives access to input and output information:
 	// - count
@@ -80,20 +51,9 @@ int main()
 	/*std::cout << "inputShape size: " << inputShape.size() << "\n";
 	std::cout << "inputShape data:" << inputShape.data() << "\n";*/
 	// set some input values
-	std::vector<float> inputValues;
-    inputValues.assign(input_speech, input_speech + 100000);
-//     for(int i=0;i<100000;i++){
-//         inputValues.push_back(0.01);
-//     }
+	std::vector<float> inputValues = { 6.7, 3.1, 4.4, 1.4 };
 	std::cout << "inputValues size: " << inputValues.size() << "\n";
-    std::cout << "input size:" << session.GetInputTypeInfo(0).GetTensorTypeAndShapeInfo().GetShape().size()<<
-        session.GetInputTypeInfo(0).GetTensorTypeAndShapeInfo().GetShape()[0]<<", "<<
-        session.GetInputTypeInfo(0).GetTensorTypeAndShapeInfo().GetShape()[1]<<"\n";
 	std::cout << "inputValues data:" << inputValues.data() << "\n";
-    std::cout << "output size:" << session.GetOutputTypeInfo(0).GetTensorTypeAndShapeInfo().GetShape().size()<<
-        session.GetOutputTypeInfo(0).GetTensorTypeAndShapeInfo().GetShape()[0]<<", "<<
-        session.GetOutputTypeInfo(0).GetTensorTypeAndShapeInfo().GetShape()[1]<<", "<<
-        session.GetOutputTypeInfo(0).GetTensorTypeAndShapeInfo().GetShape()[2]<<"\n";
 	// where to allocate the tensors
 	auto memoryInfo = Ort::MemoryInfo::CreateCpu(OrtDeviceAllocator, OrtMemTypeCPU);
 
@@ -102,7 +62,7 @@ int main()
 		inputValues.data(), inputValues.size(),
 		inputShape.data(), inputShape.size());*/
 	// Jolin customized
-	std::vector<int64_t> input_node_dims = { 1, 100000 };
+	std::vector<int64_t> input_node_dims = { 1, 4 };
 	auto inputOnnxTensor = Ort::Value::CreateTensor<float>(memoryInfo, 
 		inputValues.data(), inputValues.size(),
 		input_node_dims.data(), 2);
@@ -121,11 +81,12 @@ int main()
 	auto& output1 = outputValues[0];
 	auto* floats = output1.GetTensorMutableData<float>(); // Get pointer to output tensor float values
 	const auto floatsCount = output1.GetTensorTypeAndShapeInfo().GetElementCount();
-    getResult(floats, floatsCount);
+	getResult(floats, floatsCount);
 	// just print the output values
 	//std::copy_n(floats, floatsCount, ostream_iterator<float>(cout, " "));
     // pointer array to vector
 	vector<double> values(floats, floats + floatsCount);
+    std::cout<<"out: "<<values[0]+1 << endl;
 	// closing boilerplate
 	allocator.Free(inputName);
 	allocator.Free(outputName);
