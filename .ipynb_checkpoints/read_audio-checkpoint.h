@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <tuple>
 #include <string>
+#include <math.h>
 
 typedef struct header_file
 {
@@ -23,5 +24,5 @@ typedef struct header_file
 typedef struct header_file *header_p;
 
 
-
-std::tuple<int, short int*> call(std::string path);
+void normalize(short int* speech, int samples, double* input_speech);
+std::tuple<int, short int*> WavfileRead(std::string path);
