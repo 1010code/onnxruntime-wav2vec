@@ -1,6 +1,7 @@
 #include <iostream>
-#include <cstring>
 #include <stdlib.h>
+#include <tuple>
+#include <string>
 
 typedef struct header_file
 {
@@ -21,12 +22,13 @@ typedef struct header_file
 
 typedef struct header_file *header_p;
 
-short int dataBuffer[4096 * 59];
-int dataIndex = 0;
 
-int main(){
-    FILE *infile = fopen("./data/test1.wav", "rb"); // Open wave file in read mode
 
+std::tuple<int, short int*> call(std::string path){
+    FILE *infile = fopen(path.c_str(), "rb"); // Open wave file in read mode
+
+    short int dataBuffer[4096 * 59];
+    int dataIndex = 0;
 	int BUFSIZE = 4096 * 2; // BUFSIZE can be changed according to the frame size required (eg:512)
 	int data_index = 0;
 	int count = 0;									  // For counting number of frames in wave file.
@@ -44,19 +46,20 @@ int main(){
 		{
 			nb = fread(buff16, 1, BUFSIZE, infile); // Reading data in chunks of BUFSIZE
 			// std::cout << nb << std::endl;						// buffer 大小
-			count++; // Incrementing Number of frames
 
 			/* Insert your processing code here*/
 			// 將音訊存入data[] 長度為 4096*59
 			if (nb != 0)
 			{
+                count++; // Incrementing Number of frames
 				for (int i = 0; i < 4096; i++)
 				{
 					dataBuffer[data_index++] = buff16[i];
 				}
 			}
 		}
-		std::cout << " Number of frames in the input wave file are " << count << std::endl;
+		std::cout << " Number of frames in the input wave file are " << count << " "<< data_index << std::endl;
+        return {data_index, dataBuffer};
 	}
 
 }
