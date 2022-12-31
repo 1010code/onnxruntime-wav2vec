@@ -30,8 +30,10 @@ void getResult(float* floats, int floatsCount) {
                 label = j;
             }
         }
-		std::cout << inputValues[label] << " ";
+        if(inputValues[label]!="[PAD]" && inputValues[label]!="|")
+            std::cout << inputValues[label];
 	}
+    std:cout<<"\n";
 }
 
 int main()
@@ -39,7 +41,7 @@ int main()
     // 模型輸入
     double input_speech[100000];
     // 讀取音檔 16kHz
-    auto [samples, speech] = WavfileRead("./data/test3.wav");
+    auto [samples, speech] = WavfileRead("./data/test4.wav");
     std::cout << "Samples: "<< samples << ",first sample" << speech[0] << std::endl;
     // audio normalize
     normalize(speech, samples, input_speech);
