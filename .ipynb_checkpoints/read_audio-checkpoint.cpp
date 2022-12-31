@@ -32,7 +32,7 @@ void normalize(short int* speech, int samples, double* input_speech){
     mean/=samples;
     // variance
     for(int i=0;i<samples;i++){
-        variance+=(speech[i]-mean)*speech[i]-mean;
+        variance+=(speech[i]-mean)*(speech[i]-mean);
     }
     variance/=samples;
     std::cout<<"mean: "<< mean<<" variance: "<< variance << std::endl;
