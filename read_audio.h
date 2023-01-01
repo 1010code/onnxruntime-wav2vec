@@ -13,7 +13,7 @@ typedef struct header_file
 	int subchunk1_size;
 	short int audio_format;
 	short int num_channels;
-	int sample_rate; // sample_rate denotes the sampling rate.
+	int sample_rate;
 	int byte_rate;
 	short int block_align;
 	short int bits_per_sample;

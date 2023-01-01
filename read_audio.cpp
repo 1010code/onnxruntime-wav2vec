@@ -58,10 +58,11 @@ std::tuple<int, short int*> WavfileRead(std::string path){
 	if (infile)
 	{
 		fread(meta, 1, sizeof(header), infile);
-		std::cout << " Size of Header file is " << sizeof(*meta) << " bytes" << std::endl;
-		std::cout << " Sampling rate of the input wave file is " << meta->sample_rate << " Hz" << std::endl;
-		std::cout << " File size " << meta->subchunk2_size << std::endl;
-        std::cout << " File size chunk_size " << meta->chunk_size << std::endl;
+        std::cout << "-----------------------------------------------------" << std::endl;
+		std::cout << " Size of Header: " << sizeof(*meta) << " bytes" << std::endl;
+		std::cout << " Sampling rate: " << meta->sample_rate << " Hz" << std::endl;
+		std::cout << " File size: " << meta->chunk_size << " bytes"<< std::endl;
+        std::cout << " Audio data size: " << meta->subchunk2_size << " bytes"<< std::endl;
             
 		while (!feof(infile))
 		{
@@ -79,7 +80,9 @@ std::tuple<int, short int*> WavfileRead(std::string path){
 				}
 			}
 		}
-		std::cout << " Number of frames in the input wave file are " << count << " "<< data_index << std::endl;
+        std::cout << " Number of frames: " << count << std::endl;
+		std::cout << " Number of samples: " << data_index << std::endl;
+        std::cout << "-----------------------------------------------------" << std::endl;
         return {data_index, dataBuffer};
 	}
 
