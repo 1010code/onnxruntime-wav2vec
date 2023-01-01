@@ -10,4 +10,3 @@ int main(){
     normalize(speech, samples, input_speech);
     std::cout<< input_speech[0] <<"\n";
 }
-
