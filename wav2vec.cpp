@@ -41,7 +41,7 @@ int main()
     // 模型輸入
     double input_speech[100000];
     // 讀取音檔 16kHz
-    auto [samples, speech] = WavfileRead("./data/test4.wav");
+    auto [samples, speech] = WavfileRead("./data/test5.wav");
     std::cout << "Samples: "<< samples << ",first sample" << speech[0] << std::endl;
     // audio normalize
     normalize(speech, samples, input_speech);
@@ -88,14 +88,14 @@ int main()
 //         inputValues.push_back(0.01);
 //     }
 	std::cout << "inputValues size: " << inputValues.size() << "\n";
-    std::cout << "input size:" << session.GetInputTypeInfo(0).GetTensorTypeAndShapeInfo().GetShape().size()<<
+    std::cout << "input size:" << session.GetInputTypeInfo(0).GetTensorTypeAndShapeInfo().GetShape().size()<<" ("<<
         session.GetInputTypeInfo(0).GetTensorTypeAndShapeInfo().GetShape()[0]<<", "<<
-        session.GetInputTypeInfo(0).GetTensorTypeAndShapeInfo().GetShape()[1]<<"\n";
+        session.GetInputTypeInfo(0).GetTensorTypeAndShapeInfo().GetShape()[1]<<")\n";
 	std::cout << "inputValues data:" << inputValues.data() << "\n";
-    std::cout << "output size:" << session.GetOutputTypeInfo(0).GetTensorTypeAndShapeInfo().GetShape().size()<<
+    std::cout << "output size:" << session.GetOutputTypeInfo(0).GetTensorTypeAndShapeInfo().GetShape().size()<<" ("<<
         session.GetOutputTypeInfo(0).GetTensorTypeAndShapeInfo().GetShape()[0]<<", "<<
         session.GetOutputTypeInfo(0).GetTensorTypeAndShapeInfo().GetShape()[1]<<", "<<
-        session.GetOutputTypeInfo(0).GetTensorTypeAndShapeInfo().GetShape()[2]<<"\n";
+        session.GetOutputTypeInfo(0).GetTensorTypeAndShapeInfo().GetShape()[2]<<")\n";
 	// where to allocate the tensors
 	auto memoryInfo = Ort::MemoryInfo::CreateCpu(OrtDeviceAllocator, OrtMemTypeCPU);
 
