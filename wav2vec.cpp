@@ -10,7 +10,7 @@ using namespace std;
 void getResult(float* floats, int floatsCount) {
     // get vocab array
     std::vector<std::string> inputValues; 
-    std::ifstream file("./vocab.txt"); 
+    std::ifstream file("./data/vocab.txt"); 
     while(!file.eof()) 
     {
         std::string i; 
