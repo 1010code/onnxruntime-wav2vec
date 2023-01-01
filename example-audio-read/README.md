@@ -10,6 +10,21 @@ g++ main.cpp read_audio.cpp -o main -std=c++17
 ./main
 ```
 
+輸出結果：
+```
+-----------------------------------------------------
+ Size of Header: 44 bytes
+ Sampling rate: 16000 Hz
+ File size: 186276 bytes --> 實際檔案總大小(ChunkSize)
+ Audio data size: 186240 bytes --> 音訊資料佔據的記憶體大小 samples*2
+ Number of frames: 5820 --> 音訊長度(可以當成單位是ms代表約六秒音訊)
+ Number of samples: 93120 --> 音檔所有的音訊數量(Subchunk2Size)
+-----------------------------------------------------
+Samples: 93120
+mean: -1.08013 variance: 3.37448e+06
+First sample: 4.36223e-05
+```
+
 ## WAV File Header
 
 ![](./screenshot/img1.png)

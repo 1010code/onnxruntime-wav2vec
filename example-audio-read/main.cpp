@@ -8,5 +8,5 @@ int main(){
     std::cout << "Samples: "<< samples << std::endl;
     // audio normalize
     normalize(speech, samples, input_speech);
-    std::cout<< input_speech[0] <<"\n";
+    std::cout<< "First sample: " << input_speech[0] <<"\n";
 }
