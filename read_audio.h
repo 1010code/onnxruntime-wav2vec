@@ -18,7 +18,7 @@ typedef struct header_file
 	short int block_align;
 	short int bits_per_sample;
 	char subchunk2_id[4];
-	int subchunk2_size; // subchunk2_size denotes the number of samples.
+	int subchunk2_size;
 } header;
 
 typedef struct header_file *header_p;

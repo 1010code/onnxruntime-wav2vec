@@ -45,15 +45,7 @@ int main()
     std::cout << "Samples: "<< samples << ",first sample" << speech[0] << std::endl;
     // audio normalize
     normalize(speech, samples, input_speech);
-    double tot=0.0;
-    ofstream myfile;
-    myfile.open ("example.txt");
-    for(int i=0;i<100000;i++){
-        tot+=fabs(input_speech[i]);
-        myfile << std::fixed << std::setprecision(6) << input_speech[i] << " ";
-    }
-    myfile.close();
-    printf("tot: %.6lf\n", tot);
+    
 	// gives access to the underlying API (you can optionally customize log)
 	// you can create one environment per process (each environment manages an internal thread pool)
 	Ort::Env env;
