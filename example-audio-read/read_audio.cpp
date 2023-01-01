@@ -18,7 +18,7 @@ typedef struct header_file
 	short int block_align;
 	short int bits_per_sample;
 	char subchunk2_id[4];
-	int subchunk2_size; // subchunk2_size denotes the number of samples.
+	int subchunk2_size;
 } header;
 
 typedef struct header_file *header_p;
@@ -49,7 +49,7 @@ std::tuple<int, short int*> WavfileRead(std::string path){
 
     short int dataBuffer[4096 * 59];
     int dataIndex = 0;
-	int BUFSIZE = 16 * 2; // BUFSIZE can be changed according to the frame size required (eg:512)
+	int BUFSIZE = 16 * 2; // short int 2bytes
 	int data_index = 0;
 	int count = 0;									  // For counting number of frames in wave file.
 	short int buff16[BUFSIZE];						  // short int used for 16 bit as input data format is 16 bit PCM audio
@@ -58,10 +58,12 @@ std::tuple<int, short int*> WavfileRead(std::string path){
 	if (infile)
 	{
 		fread(meta, 1, sizeof(header), infile);
-		std::cout << " Size of Header file is " << sizeof(*meta) << " bytes" << std::endl;
-		std::cout << " Sampling rate of the input wave file is " << meta->sample_rate << " Hz" << std::endl;
-		std::cout << " Number of samples in wave file are " << meta->subchunk2_size << " samples" << std::endl;
-
+        std::cout << "-----------------------------------------------------" << std::endl;
+		std::cout << " Size of Header: " << sizeof(*meta) << " bytes" << std::endl;
+		std::cout << " Sampling rate: " << meta->sample_rate << " Hz" << std::endl;
+		std::cout << " File size: " << meta->chunk_size << " bytes"<< std::endl;
+        std::cout << " Audio data size: " << meta->subchunk2_size << " bytes"<< std::endl;
+            
 		while (!feof(infile))
 		{
 			nb = fread(buff16, 1, BUFSIZE, infile); // Reading data in chunks of BUFSIZE
@@ -78,7 +80,9 @@ std::tuple<int, short int*> WavfileRead(std::string path){
 				}
 			}
 		}
-		std::cout << " Number of frames in the input wave file are " << count << " "<< data_index << std::endl;
+        std::cout << " Number of frames: " << count << std::endl;
+		std::cout << " Number of samples: " << data_index << std::endl;
+        std::cout << "-----------------------------------------------------" << std::endl;
         return {data_index, dataBuffer};
 	}
 
