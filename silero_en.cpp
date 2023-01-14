@@ -33,12 +33,11 @@ void getResult(float* floats, int floatsCount) {
         }
         if(label!=0 && label != preLabel){
             std::cout << inputValues[label];
-            if(label==998){
-                std::cout << " ";
-            }
+            if(label==998)
+                printf(" ");
             preLabel=label;
         }
-            
+     
 	}
     printf("\n");
 }
@@ -47,22 +46,22 @@ int main()
 {
     
     // 讀取音檔 16kHz
-//     auto [samples, speech] = WavfileRead("./data/en.wav");
-//     // 模型輸入
-//     double input_speech[samples];
-//     std::cout << "Samples: "<< samples << ",first sample" << speech[0] << std::endl;
-//     // audio normalize
+    auto [samples, speech] = WavfileRead("./data/en/test4.wav");
+    // 模型輸入
+    double input_speech[samples];
+    std::cout << "Samples: "<< samples << ",first sample" << speech[0] << std::endl;
+    // audio normalize
 //     normalize_mm(speech, samples, input_speech);
-    std::vector<float> inputValues; 
-    int samples=0;
-    std::ifstream file("./data/test1.txt"); 
-    while(!file.eof()) 
-    {
-        double i; 
-        file >> i; 
-        inputValues.emplace_back(i); 
-        samples++;
-    }
+//     std::vector<float> inputValues; 
+//     int samples=0;
+//     std::ifstream file("./data/test1.txt"); 
+//     while(!file.eof()) 
+//     {
+//         double i; 
+//         file >> i; 
+//         inputValues.emplace_back(i); 
+//         samples++;
+//     }
 	// gives access to the underlying API (you can optionally customize log)
 	// you can create one environment per process (each environment manages an internal thread pool)
 	Ort::Env env;
@@ -88,14 +87,10 @@ int main()
 
 	// get input shape
 	auto inputShape = session.GetInputTypeInfo(0).GetTensorTypeAndShapeInfo().GetShape();
-	/*std::cout << "inputShape size: " << inputShape.size() << "\n";
-	std::cout << "inputShape data:" << inputShape.data() << "\n";*/
 	// set some input values
-// 	std::vector<float> inputValues;
-//     inputValues.assign(input_speech, input_speech + samples);
-//     for(int i=0;i<100000;i++){
-//         inputValues.push_back(0.01);
-//     }
+	std::vector<float> inputValues;
+    inputValues.assign(speech, speech + samples);
+    std::cout<< inputValues[0] << " " << inputValues[1] << std::endl;
 	std::cout << "inputValues size: " << inputValues.size() << "\n";
     std::cout << "input size:" << session.GetInputTypeInfo(0).GetTensorTypeAndShapeInfo().GetShape().size()<<" ("<<
         session.GetInputTypeInfo(0).GetTensorTypeAndShapeInfo().GetShape()[0]<<", "<<

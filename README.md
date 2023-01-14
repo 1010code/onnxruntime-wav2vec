@@ -25,3 +25,9 @@ g++ silero_en.cpp read_audio.cpp -o main -I onnxruntime-linux-aarch64-1.12.1/inc
 
 ./main
 ```
+
+
+- test1 (goodmorning this is a beautiful day)
+- test2 (hello what's your name)
+- test3 (an apple a day keeps the doctor away)
+- test4 (what time is it)
