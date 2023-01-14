@@ -43,6 +43,19 @@ void normalize(short int* speech, int samples, double* input_speech){
             input_speech[i] = 0;
     }
 }
+// (signal - MIN) / (MAX-MIN)
+void normalize_mm(short int* speech, int samples, double* input_speech){
+    // mean
+    int min=-32768, max=32767;
+    std::cout<<"min: "<< min<<" max: "<< max << std::endl;
+    for(int i=0;i<samples;i++){
+        double X_std = (speech[i] - min)*1. / (max - min);
+        X_std = X_std * (1 - -1) + -1;
+        input_speech[i]=X_std;
+//         input_speech[i]=speech[i];
+//         std::cout<< input_speech[i] << " ";
+    }
+}
 
 std::tuple<int, short int*> WavfileRead(std::string path){
     FILE *infile = fopen(path.c_str(), "rb"); // Open wave file in read mode
