@@ -1,4 +1,4 @@
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/1010code/onnxruntime-wav2vec/blob/main/colab_audio_record.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/1010code/onnxruntime-wav2vec/blob/main/example-audio-read/colab_audio_record.ipynb)
 
 ## Install ONNXRuntime
 此範例在 linux-x64 上運行 ONNXRuntime。從官方下載動態連接庫後並安裝到系統目錄下。
@@ -32,9 +32,14 @@ g++ silero_en.cpp read_audio.cpp -o main -I onnxruntime-linux-aarch64-1.12.1/inc
 - test3 (an apple a day keeps the doctor away)
 - test4 (what time is it)
 
+## Download pre-train model
+pre-trained STT models.
+
+```
+wget https://models.silero.ai/models/en/en_v5.onnx -P data
+wget https://models.silero.ai/models/en/en_v1_labels.json -p data
+```
 
 ## Reference
 
-```
-wget 
-```
+- [silero-models config file](https://raw.githubusercontent.com/snakers4/silero-models/master/models.yml)

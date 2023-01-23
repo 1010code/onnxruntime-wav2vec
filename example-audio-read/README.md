@@ -1,6 +1,6 @@
 
 ## Colab 錄音
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/1010code/onnxruntime-wav2vec/blob/main/colab_audio_record.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/1010code/onnxruntime-wav2vec/blob/main/example-audio-read/colab_audio_record.ipynb)
 
 
 ## Compile
