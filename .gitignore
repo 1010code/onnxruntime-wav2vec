@@ -1,5 +1,6 @@
 data/asr3.onnx
 data/ars_wav2vec2_large-xlsr-52-tw.onnx
+data/en_v5.onnx
 .ipynb_checkpoints/
 main
 /example-audio-read/main
