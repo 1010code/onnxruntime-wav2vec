@@ -11,7 +11,6 @@ sudo ldconfig
 ## Compile
 
 ```
-<<<<<<< HEAD
 # Intel CPU
 g++ wav2vec.cpp read_audio.cpp -o main -I onnxruntime-linux-x64-1.12.1/include -Lonnxruntime-linux-x64-1.12.1/lib -lonnxruntime -std=c++17
 g++ silero_en.cpp read_audio.cpp -o main -I onnxruntime-linux-x64-1.12.1/include -Lonnxruntime-linux-x64-1.12.1/lib -lonnxruntime -std=c++17
@@ -32,8 +31,10 @@ g++ silero_en.cpp read_audio.cpp -o main -I onnxruntime-linux-aarch64-1.12.1/inc
 - test2 (hello what's your name)
 - test3 (an apple a day keeps the doctor away)
 - test4 (what time is it)
-=======
-g++ wav2vec.cpp read_audio.cpp -o main -I onnxruntime-linux-x64-1.12.1/include -Lonnxruntime-linux-x64-1.12.1/lib -lonnxruntime -std=c++17
-./main
+
+
+## Reference
+
 ```
->>>>>>> e972f332ef847d4698177f5faa30f7c1f1bb2f14
+wget 
+```

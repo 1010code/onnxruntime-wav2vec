@@ -25,8 +25,5 @@ typedef struct header_file *header_p;
 
 
 void normalize(short int* speech, int samples, double* input_speech);
-<<<<<<< HEAD
 void normalize_mm(short int* speech, int samples, double* input_speech);
-=======
->>>>>>> e972f332ef847d4698177f5faa30f7c1f1bb2f14
 std::tuple<int, short int*> WavfileRead(std::string path);
