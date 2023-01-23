@@ -41,7 +41,7 @@ int main()
     // 模型輸入
     double input_speech[100000];
     // 讀取音檔 16kHz
-    auto [samples, speech] = WavfileRead("./data/test5.wav");
+    auto [samples, speech] = WavfileRead("./data/zh/test1.wav");
     std::cout << "Samples: "<< samples << ",first sample" << speech[0] << std::endl;
     // audio normalize
     normalize(speech, samples, input_speech);
