@@ -26,11 +26,18 @@ g++ silero_en.cpp read_audio.cpp -o main -I onnxruntime-linux-aarch64-1.12.1/inc
 ./main
 ```
 
+### 中文測試資料
+- test1 今天天氣很好出太陽了
+- test2 我早上起床後就去運動
+- test3 麥克風測試我今天早上起床吃了一個蛋餅
+- test4 下午我去百貨公司買了一雙鞋子跟一個皮包
+- test5 我今天早上去運動非常的開心
 
+
+### 英文測試資料
 - test1 (goodmorning this is a beautiful day)
 - test2 (hello what's your name)
 - test3 (an apple a day keeps the doctor away)
-- test4 (what time is it)
 
 ## Download pre-train model
 pre-trained STT models.
