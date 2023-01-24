@@ -45,6 +45,7 @@ pre-trained STT models.
 ```
 wget https://models.silero.ai/models/en/en_v5.onnx -P data
 wget https://models.silero.ai/models/en/en_v1_labels.json -p data
+gdown "https://drive.google.com/uc?export=download&confirm=no_antivirus&id=1sKUGYv6IDchKDApmtLbWmj3Zbwk_uJ_U"
 ```
 
 ## Reference
